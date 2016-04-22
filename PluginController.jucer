@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="SLvE3K" name="PluginController" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.millitone.PluginController" includeBinaryInAppConfig="1"
+              jucerVersion="4.1.0">
+  <MAINGROUP id="Xv0MVE" name="PluginController">
+    <GROUP id="{43535184-F5EB-83F5-DA68-DB511D3287DE}" name="Source">
+      <FILE id="Dix0qW" name="SecondaryComponent.cpp" compile="1" resource="0"
+            file="Source/SecondaryComponent.cpp"/>
+      <FILE id="ubn8rX" name="SecondaryComponent.h" compile="0" resource="0"
+            file="Source/SecondaryComponent.h"/>
+      <FILE id="iV91XT" name="Test.cpp" compile="1" resource="0" file="Source/Test.cpp"/>
+      <FILE id="eQRBYj" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
+      <FILE id="Ri9osb" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="LniwiP" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="" vst3Folder="">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="1" optimisation="1" targetName="PluginController"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="PluginController" fastMath="0"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Program Files/juce-grapefruit-windows/modules"/>
+      </MODULEPATHS>
+    </VS2015>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_VST3="enabled"/>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
