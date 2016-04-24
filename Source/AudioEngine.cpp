@@ -20,41 +20,23 @@ AudioEngine* engine() { return audioEngine; }
 
 AudioEngine::AudioEngine(int inChannels, int outChannels) {
 
-	//const OwnedArray<AudioIODeviceType>& deviceTypes = deviceManager.getAvailableDeviceTypes();
-
-	/*for (AudioIODeviceType* dt : deviceTypes) {
-		DBG(dt->getTypeName());
-		dt->scanForDevices();
-		StringArray sa = dt->getDeviceNames();
-		for (String s : sa) {
-			DBG(s);
-		}
-	}*/
 
 	String error = deviceManager.initialise(inChannels, outChannels, nullptr, true);
 	if (error != "") {
 		DBG(error);
 		throw std::exception{ error.toRawUTF8() };
 	}
-	deviceManager.setCurrentAudioDeviceType("ASIO", false);
-	
-	AudioDeviceManager::AudioDeviceSetup ads;
-	deviceManager.getAudioDeviceSetup(ads);
-	DBG(ads.bufferSize);
-	DBG(ads.inputDeviceName);
-	DBG(ads.outputDeviceName);
-	DBG(ads.sampleRate);
-	DBG(String{ ads.useDefaultInputChannels });
-	AudioIODevice* aiod = deviceManager.getCurrentAudioDevice();
-	DBG(deviceManager.getCurrentAudioDeviceType());
-	AudioIODeviceType* aiodt = deviceManager.getCurrentDeviceTypeObject();
 
-	ads.inputDeviceName = "ASIO Hammerfall DSP";
-	ads.outputDeviceName = "ASIO Hammerfall DSP";
+	printDeviceInfo();
 
-	deviceManager.setAudioDeviceSetup(ads, true);
-
-
+	if (isDeviceAvailable("ASIO Hammerfall DSP")) {
+		deviceManager.setCurrentAudioDeviceType("ASIO", false);
+		AudioDeviceManager::AudioDeviceSetup ads;
+		deviceManager.getAudioDeviceSetup(ads);
+		ads.inputDeviceName = "ASIO Hammerfall DSP";
+		ads.outputDeviceName = "ASIO Hammerfall DSP";
+		deviceManager.setAudioDeviceSetup(ads, true);
+	}
 
 	fillKnownPluginList(knownPluginList);
 	app.setProcessor(&apg);
@@ -82,8 +64,9 @@ AudioEngine::~AudioEngine() {
 	deviceManager.closeAudioDevice();
 }
 
-bool AudioEngine::addRemovePlugin(String pluginName, uint32 nodeid) {
+bool AudioEngine::addRemovePlugin(String pluginName, uint32 nodeid) {	
 	apg.removeNode(nodeid);
+	
 
 	PluginDescription* plugin = nullptr;
 	for (PluginDescription* pd : knownPluginList) {
@@ -172,4 +155,45 @@ void fillKnownPluginList(KnownPluginList& kpl) {
 	XmlElement* elem = kpl.createXml();
 	elem->writeToFile(file, "");
 	delete elem;
+}
+
+bool AudioEngine::isDeviceAvailable(String deviceName) {
+	const OwnedArray<AudioIODeviceType>& deviceTypes = deviceManager.getAvailableDeviceTypes();
+	for (AudioIODeviceType* dt : deviceTypes) {
+		dt->scanForDevices();
+		StringArray sa = dt->getDeviceNames();
+		for (String s : sa) {
+			if (s == "deviceName") {
+				return true;
+			}
+		}
+	}
+}
+
+void AudioEngine::printDeviceInfo() {
+	DBG("available devices");
+	const OwnedArray<AudioIODeviceType>& deviceTypes = deviceManager.getAvailableDeviceTypes();
+	for (AudioIODeviceType* dt : deviceTypes) {
+		DBG(dt->getTypeName());
+		dt->scanForDevices();
+		StringArray sa = dt->getDeviceNames();
+		for (String s : sa) {
+			DBG(s);
+		}
+		DBG("");
+	}
+	DBG("current device settings");
+	AudioDeviceManager::AudioDeviceSetup ads;
+	deviceManager.getAudioDeviceSetup(ads);
+	DBG(ads.bufferSize);
+	DBG(ads.inputDeviceName);
+	DBG(ads.outputDeviceName);
+	DBG(ads.sampleRate);
+	DBG(String{ ads.useDefaultInputChannels });
+	AudioIODevice* aiod = deviceManager.getCurrentAudioDevice();
+	
+	DBG(deviceManager.getCurrentAudioDeviceType());
+	AudioIODeviceType* aiodt = deviceManager.getCurrentDeviceTypeObject();
+
+	DBG("");
 }

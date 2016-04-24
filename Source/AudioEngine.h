@@ -18,6 +18,8 @@ public:
 	bool addRemovePlugin(String pluginName, uint32 nodeid);
 	bool addConnection(uint32 sourceNodeId, int sourceChannelIndex, uint32 destNodeId, int destChannelIndex);
 	AudioProcessorEditor* getEditor(uint32 nodeid);
+	bool isDeviceAvailable(String deviceName);
+	void printDeviceInfo();
 
 private:
 	AudioDeviceManager deviceManager;
@@ -56,12 +58,11 @@ public:
 	void prepareToPlay(double, int) override {/* query busArrangement*/ }
 	void releaseResources() override {}
 	void processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override {
-		DBG(midiMessages.getNumEvents());
-		/*buffer.addSample(0, 0, 1.0f);
-		DBG(buffer.getNumSamples());
+		/*
 		for (DllUnit& dllunit : dllunits) {
 			dllunit.sendBuffers(buffer, midiMessages);
-		}*/
+		}
+		*/
 	}
 
 	double getTailLengthSeconds() const override { return 0; }

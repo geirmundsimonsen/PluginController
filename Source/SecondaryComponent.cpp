@@ -14,7 +14,7 @@
 
 NodeComponent::NodeComponent() {
 	setSize(600, 25);
-
+	
 	addAndMakeVisible(pluginName);
 	pluginName.setBounds(0, 0, 120, 25);
 	pluginName.addListener(this);
@@ -34,6 +34,7 @@ NodeComponent::NodeComponent() {
 
 void NodeComponent::textEditorReturnKeyPressed(TextEditor& editor) {
 	if (&editor == &pluginName) {
+		editorWindow = nullptr;
 		bool success = engine()->addRemovePlugin(editor.getText(), 105482);
 		if (success) {
 			engine()->addConnection(2, 4096, 105482, 4096);
@@ -49,8 +50,9 @@ void NodeComponent::textEditorReturnKeyPressed(TextEditor& editor) {
 
 void NodeComponent::buttonClicked(Button* button) {
 	if (button = &openEditorButton) {
-		AudioProcessorEditor* ape = engine()->getEditor(105482);
-		ape->addToDesktop(ComponentPeer::windowHasCloseButton);
+		editorWindow = new EditorWindow();
+		editorWindow->setVisible(true);
+		editorWindow->setContentComponent(engine()->getEditor(105482));
 	}
 }
 

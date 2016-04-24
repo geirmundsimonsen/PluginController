@@ -14,8 +14,8 @@ public:
 	void resized();
 
 private:
+	AudioEngine ae{ 256, 256 }; // created first; destroyed last - important for editors
 	NodeComponent nodeComponent;
-	AudioEngine ae{ 256, 256 };
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AppComponent)
 };
 

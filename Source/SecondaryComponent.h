@@ -13,6 +13,12 @@
 
 #include <memory>
 
+class EditorWindow : public DocumentWindow {
+public:
+	EditorWindow() : DocumentWindow("editor window", Colours::beige, DocumentWindow::closeButton) {}
+	void closeButtonPressed() { this->removeFromDesktop(); }
+};
+
 class NodeComponent : public Component, public TextEditor::Listener, public TextButton::Listener {
 public:
 	NodeComponent();
@@ -24,6 +30,8 @@ private:
 	TextEditor connectionSpec;
 	TextEditor dllPath;
 	TextButton openEditorButton;
+	//ScopedPointer<AudioProcessorEditor> ape;
+	ScopedPointer<EditorWindow> editorWindow;
 };
 
 class SecondaryContentComponent : public Component {
