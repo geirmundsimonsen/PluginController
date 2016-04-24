@@ -10,8 +10,8 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "test.h"
 #include "SecondaryComponent.h"
+#include "AudioEngine.h"
 
 class MainContentComponent : public AudioAppComponent {
 public:

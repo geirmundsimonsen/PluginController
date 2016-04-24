@@ -1,19 +1,36 @@
 /*
   ==============================================================================
 
-	Test.h
-	Created: 9 Apr 2016 6:56:06pm
-	Author:  geirm
+    AudioEngine.h
+    Created: 22 Apr 2016 7:55:07pm
+    Author:  User
 
   ==============================================================================
 */
 
-#ifndef TEST_H_INCLUDED
-#define TEST_H_INCLUDED
+#ifndef AUDIOENGINE_H_INCLUDED
+#define AUDIOENGINE_H_INCLUDED
 
-#include <queue>
-#include <list>
-#include <Windows.h>
+class AudioEngine {
+public:
+	AudioEngine(int, int);
+	~AudioEngine();
+	bool addRemovePlugin(String pluginName, uint32 nodeid);
+	bool addConnection(uint32 sourceNodeId, int sourceChannelIndex, uint32 destNodeId, int destChannelIndex);
+	AudioProcessorEditor* getEditor(uint32 nodeid);
+
+private:
+	AudioDeviceManager deviceManager;
+	AudioProcessorPlayer app{ false };
+	AudioProcessorGraph apg;
+	AudioPluginFormatManager formatManager;
+	KnownPluginList knownPluginList;
+	KnownPluginList::SortMethod pluginSortMethod;
+};
+
+
+void setEngine(AudioEngine* e);
+AudioEngine* engine();
 
 void fillKnownPluginList(KnownPluginList& kpl);
 
@@ -27,7 +44,7 @@ public:
 	~DllUnit() {
 		delete(dl);
 	}
-	
+
 	DynamicLibrary* dl;
 	void(*sendBuffers)(AudioBuffer<float>&, MidiBuffer&);
 };
@@ -39,12 +56,16 @@ public:
 	void prepareToPlay(double, int) override {/* query busArrangement*/ }
 	void releaseResources() override {}
 	void processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override {
+		DBG(midiMessages.getNumEvents());
+		/*buffer.addSample(0, 0, 1.0f);
+		DBG(buffer.getNumSamples());
 		for (DllUnit& dllunit : dllunits) {
 			dllunit.sendBuffers(buffer, midiMessages);
-		}
+		}*/
 	}
+
 	double getTailLengthSeconds() const override { return 0; }
-	bool acceptsMidi() const override { return false; }
+	bool acceptsMidi() const override { return true; }
 	bool producesMidi() const override { return true; }
 	AudioProcessorEditor* createEditor() override { return nullptr; }
 	bool hasEditor() const override { return false; }
@@ -64,4 +85,5 @@ private:
 	std::vector<DllUnit> dllunits;
 };
 
-#endif  // TEST_H_INCLUDED
+
+#endif  // AUDIOENGINE_H_INCLUDED

@@ -13,15 +13,17 @@
 
 #include <memory>
 
-class NodeComponent : public Component, public TextEditor::Listener {
+class NodeComponent : public Component, public TextEditor::Listener, public TextButton::Listener {
 public:
 	NodeComponent();
 	void textEditorReturnKeyPressed(TextEditor& editor) override;
+	void buttonClicked(Button* button) override;
 
 private:
 	TextEditor pluginName;
 	TextEditor connectionSpec;
 	TextEditor dllPath;
+	TextButton openEditorButton;
 };
 
 class SecondaryContentComponent : public Component {
